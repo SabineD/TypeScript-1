@@ -7,15 +7,15 @@ const calculatex = (x, y, operator) => {
 };
 console.log(calculatex(5, 3));
 console.log(calculatex(5, 3, "substract"));
-const introduce = (naam, leeftijd = 30) => `Hello, my name is ${naam} and I'm ${leeftijd} years old.`;
-console.log(introduce("Alice"));
-console.log(introduce("Bob", 40));
-const user = {
+const introducex = (naam, leeftijd = 30) => `Hello, my name is ${naam} and I'm ${leeftijd} years old.`;
+console.log(introducex("Alice"));
+console.log(introducex("Bob", 40));
+const userx = {
     name: "Charlie",
     age: 35,
-    describe() {
+    describex() {
         return `Hello, my name is ${this.name} and I'm ${this.age} years old.`;
     },
 };
-console.log(user.describe());
+console.log(userx.describex());
 //# sourceMappingURL=index.js.map
