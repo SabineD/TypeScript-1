@@ -17,11 +17,16 @@ class User {
   }
 
   get getFullName(): string {
-    return `<p>getFullName</p><p>${this.firstName} ${this.lastName}<p><p>----------</p>`;
+    return `GetFullName\n${this.firstName} ${this.lastName}\n------------`;
   }
 
-  public resetPassword(): void {
+  public resetPassword(): string {
     this.password = this.generatePassword();
+    console.log("Wachtwoord succesvol gereset.");
+    // console.log("Nieuw paswoord:", this.password);
+    console.log("--------------");
+
+    return this.password;
   }
 
   private generatePassword(): string {
@@ -30,43 +35,52 @@ class User {
     const specialChars = "@#$%";
     const allChars = letters + numbers + specialChars;
 
-    let password = [
+    const passwordArray: string[] = [
       letters[Math.floor(Math.random() * letters.length)],
       numbers[Math.floor(Math.random() * numbers.length)],
       specialChars[Math.floor(Math.random() * specialChars.length)],
     ];
 
-    const extraLength = Math.floor(Math.random() * 6) + 8;
-    for (let i = 0; i < extraLength; i++) {
-      password.push(allChars[Math.floor(Math.random() * allChars.length)]);
+    const extraCount = Math.floor(Math.random() * 6) + 5;
+    for (let i = 0; i < extraCount; i++) {
+      passwordArray.push(allChars[Math.floor(Math.random() * allChars.length)]);
     }
 
-    return password.sort(() => 0.5 - Math.random()).join("");
+    passwordArray.sort(() => 0.5 - Math.random());
+
+    return passwordArray.join("");
   }
 
-  public showUserInfo(): string {
-    return `<p>Log user info:</p><p>Name: ${this.firstName} ${this.lastName}</p><p>Email: ${this.email}</p><p>----------</p>`;
+  public showUserInfo(): void {
+    console.log(`Name: ${this.firstName} ${this.lastName}`);
+    console.log(`Email: ${this.email}`);
   }
 
   set setPaswoord(password: string) {
     if (this.isValidPassword(password)) {
       this.password = password;
       console.log("Wachtwoord succesvol ingesteld.");
+      console.log("--------------");
     } else {
       console.log("Wachtwoord voldoet niet aan de vereisten.");
     }
   }
 
   private isValidPassword(password: string): boolean {
-    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@#$%]{8,}$/;
+    const regex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@#$%])[A-Za-z\d@#$%]{8,13}$/;
     return regex.test(password);
   }
 }
 
-const user1 = new User("John", "Doe", "john.doe@example.com", "password123");
-const user2 = new User(
-  "Jane",
-  "Smith",
-  "jane.smith@example.com",
-  "password123"
-);
+const user1 = new User("John", "Doe", "john.doe@example.com", " ");
+const user2 = new User("Jane", "Smith", "jane.smith@example.com", " ");
+
+console.log("Log user info:");
+user1.showUserInfo();
+console.log("----------");
+console.log("Log user info:");
+user2.showUserInfo();
+console.log("----------");
+console.log(user1.getFullName);
+const generatedPassword = user1.resetPassword();
+user1.setPaswoord = generatedPassword;
